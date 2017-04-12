@@ -1,0 +1,13 @@
+name: cargo_tracker
+version: 0.1.0
+
+authors:
+  - tobias <s1190170@gmail.com>
+
+targets:
+  cargo_tracker:
+    main: src/cargo_tracker.cr
+
+crystal: 0.21.1
+
+license: MIT
