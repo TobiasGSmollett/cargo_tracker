@@ -29,4 +29,6 @@ module CargoTracker::Domain::Model::Location
     end
   end
 
+  UNKNOWN = Location.new(UnLocode.new("XXXXX"), "Unknown location")
+
 end
