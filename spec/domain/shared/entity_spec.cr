@@ -21,4 +21,5 @@ describe CargoTracker do
     false.should eq( A.new(1) == A.new(2) )
     false.should eq( A.new(1) == B.new(1) )
   end
+  
 end
