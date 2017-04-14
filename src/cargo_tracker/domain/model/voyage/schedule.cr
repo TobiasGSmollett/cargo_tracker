@@ -1,3 +1,4 @@
+require "./*"
 require "../../shared/*"
 
 module CargoTracker::Domain::Model::Voyage
