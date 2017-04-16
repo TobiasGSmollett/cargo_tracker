@@ -1,4 +1,3 @@
-#require "./*"
 require "../location/*"
 require "../../shared/*"
 

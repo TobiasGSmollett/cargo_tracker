@@ -32,7 +32,7 @@ module CargoTracker::Domain::Model::Handling
     end
   end
   
-  BY_COMPLETION_TIME_COMPARATOR = do |a, b|
+  BY_COMPLETION_TIME_COMPARATOR = ->(a, b){
     a.completion_time <=> b.completion_time
-  end
+  }
 end
