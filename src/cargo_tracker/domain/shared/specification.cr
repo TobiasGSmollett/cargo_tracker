@@ -4,38 +4,27 @@ module CargoTracker::Domain::Shared
 
   #
   # Specification interface.
-  #
-  abstract class Specification(T)
-    abstract def is_satisfied_by?(target : T)
-
-    abstract def and(other : Specification(T)): Specification(T)
-
-    abstract def or(other : Specification(T)): Specification(T)
-
-    abstract def not(other : Specification(T)): Specification(T)
-  end
-
-  #
   # Abstract base implementation of composition Specification with default
   # implementations for AndSpecification, OrSpecification and NotSpecification
   #
-  abstract class AbstractSpecification(T) < Specification(T)
-    abstract def is_satisfied_by?(target : T)
+  abstract class Specification(T)
+    def is_satisfied_by?(target : T)
+    end
 
-    def and(other : Specification(T)): Specification(T)
+    def and(other : self)
       AndSpecification.new(self, other)
     end
 
-    def or(other : Specification(T)): Specification(T)
+    def or(other : self)
       OrSpecification.new(self, other)
     end
 
-    def not(other : Specification(T)): Specification(T)
+    def not(other : self)
       NotSpecification.new(other)
     end
   end
 
-  class AndSpecification(T) < AbstractSpecification(T)
+  class AndSpecification(T) < Specification(T)
     private property spec1, spec2
 
     def initialize(@spec1, @spec2)
@@ -46,7 +35,7 @@ module CargoTracker::Domain::Shared
     end
   end
 
-  class OrSpecification(T) < AbstractSpecification(T)
+  class OrSpecification(T) < Specification(T)
     private property spec1, spec2
 
     def initialize(@spec1, @spec2)
@@ -57,7 +46,7 @@ module CargoTracker::Domain::Shared
     end
   end
 
-  class NotSpecification(T) < AbstractSpecification(T)
+  class NotSpecification(T) < Specification(T)
     private property spec1
 
     def initialize(@spec1)

@@ -1,22 +1,21 @@
+require "./*"
 require "../../shared/*"
 
 module CargoTracker::Domain::Model::Voyage
 
   class Voyage < Entity(VoyageNumber)
-    getter voyage_number : VoyageNumber
+    getter id : VoyageNumber
     getter schedule : Schedule
 
-    def initialize(voyage_number, schedule)
-      self.voyage_number = voyage_number
-      self.schedule = schedule
+    def initialize(@id, @schedule)
     end
 
     def hash
-      voyage_number.hash
+      id.hash
     end
 
     def to_s
-      "Voyage " + voyage_number
+      "Voyage " + id
     end
   end
 
