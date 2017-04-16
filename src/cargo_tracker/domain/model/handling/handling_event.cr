@@ -14,11 +14,11 @@ module CargoTracker::Domain::Model::Handling
   class HandlingEvent < DomainEvent
 
     enum Type
-      LOAD = 1
-      UNLOAD = 1
-      RECEIVE = 0
-      CLAIM = 0
-      CUSTOMS = 0
+      LOAD
+      UNLOAD
+      RECEIVE
+      CLAIM
+      CUSTOMS
     end
 
     getter cargo : Cargo
@@ -33,6 +33,11 @@ module CargoTracker::Domain::Model::Handling
 
     def ==(other : self)
       self == other
+    end
+    
+    def occurred?(leg : Leg)
+      return false if voyage.nil?
+      location == leg.location && voyage == leg.voyage
     end
   end
 end
