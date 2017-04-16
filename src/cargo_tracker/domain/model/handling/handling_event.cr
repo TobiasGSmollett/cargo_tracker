@@ -11,7 +11,7 @@ include CargoTracker::Domain::Model::Voyage
 
 module CargoTracker::Domain::Model::Handling
 
-  class HandlingEvent < ValueObject
+  class HandlingEvent < DomainEvent
 
     enum Type
       LOAD = 1
