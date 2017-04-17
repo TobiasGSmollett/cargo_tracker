@@ -1,11 +1,13 @@
 require "../../shared/*"
 require "../location/*"
 
+include CargoTracker::Domain::Model::Location
+
 module CargoTracker::Domain::Model::Voyage
 
   class CarrierMovement < ValueObject
-    getter departure_location : Location
-    getter arrival_location : Location
+    getter departure_location : Location::Location
+    getter arrival_location : Location::Location
     getter departure_time : Time
     getter arrival_time : Time
 
@@ -14,7 +16,6 @@ module CargoTracker::Domain::Model::Voyage
       @arrival_location,
       @departure_time,
       @arrival_time)
-    
     end
 
     def ==(other : self)
