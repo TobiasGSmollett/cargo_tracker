@@ -25,31 +25,31 @@ module CargoTracker::Domain::Shared
   end
 
   class AndSpecification(T) < Specification(T)
-    private property spec1, spec2
+    private getter spec1, spec2
 
-    def initialize(@spec1, @spec2)
+    def initialize(@spec1 : Specification(T), @spec2 : Specification(T))
     end
 
     def is_satisfied_by?(target : T)
-      spec1.is_satisfied_by? target && spec2.is_satisfied_by? target
+      spec1.is_satisfied_by?(target) && spec2.is_satisfied_by?(target)
     end
   end
 
   class OrSpecification(T) < Specification(T)
-    private property spec1, spec2
+    private getter spec1, spec2
 
-    def initialize(@spec1, @spec2)
+    def initialize(@spec1 : Specification(T), @spec2 : Specification(T))
     end
 
     def is_satisfied_by?(target : T)
-      spec1.is_satisfied_by? target || spec2.is_satisfied_by? target
+      spec1.is_satisfied_by?(target) || spec2.is_satisfied_by?(target)
     end
   end
 
   class NotSpecification(T) < Specification(T)
-    private property spec1
+    private getter spec1
 
-    def initialize(@spec1)
+    def initialize(@spec1 : Specification(T))
     end
 
     def is_satisfied_by?(target : T)
