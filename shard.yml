@@ -11,3 +11,11 @@ targets:
 crystal: 0.21.1
 
 license: MIT
+
+development_dependencies:
+  mocks:
+    github: waterlink/mocks.cr
+  spec2:
+    github: waterlink/spec2.cr
+  spec2-mocks:
+    github: waterlink/spec2-mocks.cr

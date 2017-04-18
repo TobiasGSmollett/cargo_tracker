@@ -4,9 +4,9 @@ require "../../shared/*"
 module CargoTracker::Domain::Model::Voyage
 
   class Schedule < ValueObject
-    private property carrier_movements : Array(CarrierMovement)
+    getter carrier_movements : Array(CarrierMovement)
 
-    def initialize(@carrier_movements)
+    def initialize(@carrier_movements : Array(CarrierMovement))
     end
 
     def ==(other : Schedule)
