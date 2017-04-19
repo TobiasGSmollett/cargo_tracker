@@ -27,17 +27,12 @@ module CargoTracker::Domain::Model::Handling
     getter typ : Type
     getter location : Location
     getter voyage : (Voyage | Nil)
-            
+
     def initialize(@cargo, @complete_time, @registration_time, @typ, @location, @voyage = nil)
     end
 
     def ==(other : self)
       self == other
-    end
-    
-    def occurred?(leg : Leg)
-      return false if voyage.nil?
-      location == leg.location && voyage == leg.voyage
     end
   end
 end
