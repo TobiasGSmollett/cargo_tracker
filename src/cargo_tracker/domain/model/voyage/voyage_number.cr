@@ -4,7 +4,7 @@ module CargoTracker::Domain::Model::Voyage
 
   class VoyageNumber < ValueObject
 
-    getter number
+    getter number : String
 
     def initialize(@number : String)
     end
