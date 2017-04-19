@@ -10,13 +10,18 @@ module CargoTracker::Domain::Model::Cargo
 
   class Leg < ValueObject
 
-    getter voyage : Voyage
-    getter load_location : Location
-    getter unload_location : Location
+    getter voyage : Voyage::Voyage
+    getter load_location : Location::Location
+    getter unload_location : Location::Location
     getter load_time : Time
     getter unload_time : Time
 
-    def initialize(@voyage, @load_location, @unload_location, @load_time, @unload_time)
+    def initialize(
+      @voyage,
+      @load_location,
+      @unload_location,
+      @load_time : Time,
+      @unload_time : Time)
     end
 
     def ==(other : self)
