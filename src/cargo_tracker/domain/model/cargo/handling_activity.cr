@@ -12,16 +12,16 @@ module CargoTracker::Domain::Model::Cargo
 
   class HandlingActivity < ValueObject
     getter typ : HandlingEvent::Type
-    getter location : Location
-    getter voyage : (Voyage | Nil)
-    
+    getter location : Location::Location
+    getter voyage : (Voyage::Voyage | Nil)
+
     def initialize(@typ, @location)
       @voyage = nil
     end
-    
+
     def initialize(@typ, @location, @voyage)
     end
-    
+
     def ==(other : self)
       typ == other.typ && location == other.location && voyage == other.voyage
     end

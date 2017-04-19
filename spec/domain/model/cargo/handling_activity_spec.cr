@@ -1,5 +1,4 @@
 require "../../../spec_helper"
-require "spec2-mocks"
 
 include CargoTracker::Domain::Model::Cargo
 include CargoTracker::Domain::Model::Voyage
@@ -7,13 +6,16 @@ include CargoTracker::Domain::Model::Location
 
 describe CargoTracker do
 
-  it "Equivalence of RouteSpecification" do
+  it "Equivalence of handling activity" do
     tokyo = Location.new(UnLocode.new("JPTYO"), "Tokyo")
     newyork = Location.new(UnLocode.new("USNYC"), "NewYork")
-    time = Time.new
-    route_spec = RouteSpecification.new(tokyo,newyork, time)
-    route_spec2 = RouteSpecification.new(tokyo,newyork, time)
-    true.should eq(route_spec == route_spec2)
+
+    a = HandlingActivity.new(HandlingEvent::Type::LOAD, tokyo)
+    b = HandlingActivity.new(HandlingEvent::Type::LOAD, tokyo)
+    c = HandlingActivity.new(HandlingEvent::Type::LOAD, newyork)
+
+    true.should eq(a == b)
+    false.should eq(a == c)
   end
 
 end
