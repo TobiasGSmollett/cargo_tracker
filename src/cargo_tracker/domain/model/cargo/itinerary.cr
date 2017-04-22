@@ -7,15 +7,10 @@ include CargoTracker::Domain::Model::Location
 module CargoTracker::Domain::Model::Cargo
 
 
-  class Itinerary < ValueObject
+  struct Itinerary
     getter legs : Array(Leg)
 
-    def initialize(@legs)
-    end
-
-    def ==(other : self)
-      legs == other.legs
-    end
+    def initialize(@legs); end
 
     def initial_departure_location
       legs.empty? ? Location::UNKNOWN : legs.first.load_location

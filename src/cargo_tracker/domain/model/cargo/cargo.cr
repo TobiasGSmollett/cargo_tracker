@@ -15,7 +15,7 @@ module CargoTracker::Domain::Model::Cargo
     getter itinerary : Itinerary
     getter delivery : Delivery
 
-    def initialize(@id, @route_specification : RouteSpecification)
+    def initialize(@id, @route_specification)
       @origin = route_specification.origin
       @itinerary = Itinerary::EMPTY
       @delivery = Delivery.derived_from @route_specification, @itinerary, HandlingHistory::EMPTY
@@ -33,14 +33,6 @@ module CargoTracker::Domain::Model::Cargo
 
     def derive_delivery_progress(handlingHistory)
       @delivery = Delivery.derived_from route_specification, itinerary, handling_history
-    end
-
-    def hash
-      id.hash
-    end
-
-    def to_s
-      id.to_s
     end
   end
 end

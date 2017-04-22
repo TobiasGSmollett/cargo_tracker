@@ -7,8 +7,7 @@ module CargoTracker::Domain::Model::Voyage
     getter id : VoyageNumber
     getter schedule : Schedule
 
-    def initialize(@id, @schedule)
-    end
+    def initialize(@id, @schedule); end
 
     def hash
       id.hash

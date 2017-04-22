@@ -11,7 +11,7 @@ include CargoTracker::Domain::Model::Handling
 
 module CargoTracker::Domain::Model::Cargo
 
-  class Delivery < ValueObject
+  struct Delivery
     getter transport_status : TransportStatus
     getter last_known_location : (Location | Nil)
     getter current_voyage : (Voyage | Nil)
@@ -35,10 +35,7 @@ module CargoTracker::Domain::Model::Cargo
       Delivery.new last_event, itinerary, route_specification
     end
 
-    protected def initialize(
-      @last_event,
-      itinerary,
-      route_specification)
+    protected def initialize(@last_event, itinerary, route_specification)
       
       @calculated_at = Time.new
 
@@ -66,19 +63,19 @@ module CargoTracker::Domain::Model::Cargo
       end
     end
 
-    private def calculate_last_known_location : (Location | Nil)
+    private def calculate_last_known_location
       return nil if last_event.nil?
       last_event.as(HandlingEvent).location
     end
 
-    private def calculate_current_voyage : (Voyage | Nil)
+    private def calculate_current_voyage
       if transport_status == TransportStatus::ONBOARD_CARRIER && !last_event.nil?
         last_event.as(HandlingEvent).voyage
       end
     end
 
 
-    private def calculate_misdirection_status(itinerary : Itinerary): Bool
+    private def calculate_misdirection_status(itinerary)
       return false if last_event.nil?
       !itinerary.is_expected? last_event.as(HandlingEvent)
     end
@@ -112,7 +109,7 @@ module CargoTracker::Domain::Model::Cargo
       end
     end
 
-    private def calculate_routing_status(itinerary, route_specification): RoutingStatus
+    private def calculate_routing_status(itinerary, route_specification)
       return RoutingStatus::NOT_ROUTED if itinerary.nil?
       if route_specification.is_satisfied_by? itinerary
         RoutingStatus::ROUTED
@@ -121,7 +118,7 @@ module CargoTracker::Domain::Model::Cargo
       end
     end
 
-    private def calculate_unloaded_at_destination(route_specification): Bool
+    private def calculate_unloaded_at_destination(route_specification)
       !last_event.nil? &&
       HandlingEvent::Type::UNLOAD == last_event.as(HandlingEvent).typ &&
       route_specification.destination == last_event.as(HandlingEvent).location

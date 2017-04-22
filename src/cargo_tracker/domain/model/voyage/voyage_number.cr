@@ -2,24 +2,10 @@ require "../../shared/*"
 
 module CargoTracker::Domain::Model::Voyage
 
-  class VoyageNumber < ValueObject
-
+  struct VoyageNumber
     getter number : String
-
-    def initialize(@number : String)
-    end
-
-    def ==(other : self)
-      number == other.number
-    end
-
-    def hash
-      number.hash
-    end
-
-    def to_s
-      number
-    end
+    
+    def initialize(@number); end
   end
 
 end

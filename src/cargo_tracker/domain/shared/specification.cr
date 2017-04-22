@@ -8,8 +8,7 @@ module CargoTracker::Domain::Shared
   # implementations for AndSpecification, OrSpecification and NotSpecification
   #
   abstract class Specification(T)
-    def is_satisfied_by?(target : T)
-    end
+    def is_satisfied_by?(target : T); end
 
     def and(other : self)
       AndSpecification.new(self, other)
@@ -27,8 +26,7 @@ module CargoTracker::Domain::Shared
   class AndSpecification(T) < Specification(T)
     private getter spec1, spec2
 
-    def initialize(@spec1 : Specification(T), @spec2 : Specification(T))
-    end
+    def initialize(@spec1 : Specification(T), @spec2 : Specification(T)); end
 
     def is_satisfied_by?(target : T)
       spec1.is_satisfied_by?(target) && spec2.is_satisfied_by?(target)
@@ -38,8 +36,7 @@ module CargoTracker::Domain::Shared
   class OrSpecification(T) < Specification(T)
     private getter spec1, spec2
 
-    def initialize(@spec1 : Specification(T), @spec2 : Specification(T))
-    end
+    def initialize(@spec1 : Specification(T), @spec2 : Specification(T)); end
 
     def is_satisfied_by?(target : T)
       spec1.is_satisfied_by?(target) || spec2.is_satisfied_by?(target)
@@ -49,8 +46,7 @@ module CargoTracker::Domain::Shared
   class NotSpecification(T) < Specification(T)
     private getter spec1
 
-    def initialize(@spec1 : Specification(T))
-    end
+    def initialize(@spec1 : Specification(T)); end
 
     def is_satisfied_by?(target : T)
       !spec1.is_satisfied_by? target

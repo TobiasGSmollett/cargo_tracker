@@ -13,15 +13,10 @@ module CargoTracker::Domain::Model::Location
 
     getter id : UnLocode, name : String
 
-    def initialize(@id, @name)
-    end
+    def initialize(@id, @name); end
 
     def un_locode
       id
-    end
-
-    def hash
-      id.hash
     end
 
     def to_s

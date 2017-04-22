@@ -5,7 +5,7 @@ include CargoTracker::Domain::Model::Location
 
 module CargoTracker::Domain::Model::Voyage
 
-  class CarrierMovement < ValueObject
+  struct CarrierMovement
     getter departure_location : Location::Location
     getter arrival_location : Location::Location
     getter departure_time : Time
@@ -17,14 +17,6 @@ module CargoTracker::Domain::Model::Voyage
       @departure_time,
       @arrival_time)
     end
-
-    def ==(other : self)
-      departure_location == other.departure_location &&
-      arrival_location == other.arrival_location &&
-      departure_time == other.departure_time &&
-      arrival_time == other.arrival_time
-    end
-
   end
 
 end

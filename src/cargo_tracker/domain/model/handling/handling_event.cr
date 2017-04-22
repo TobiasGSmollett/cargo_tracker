@@ -28,8 +28,7 @@ module CargoTracker::Domain::Model::Handling
     getter location : Location
     getter voyage : (Voyage | Nil)
 
-    def initialize(@cargo, @complete_time, @registration_time, @typ, @location, @voyage = nil)
-    end
+    def initialize(@cargo, @complete_time, @registration_time, @typ, @location, @voyage = nil); end
 
     def ==(other : self)
       self == other

@@ -1,4 +1,3 @@
-require "./*"
 require "../voyage/*"
 require "../location/*"
 require "../cargo/*"
@@ -19,8 +18,7 @@ module CargoTracker::Domain::Model::Handling
   
   class UnknownCargoError < CannotCreateHandlingEventError  
       
-    def initialize(@id : TrackingId)
-    end
+    def initialize(@id : TrackingId); end
     
     def message
       "No cargo with tracking id " + id.to_s + " exists in the system"
@@ -30,8 +28,7 @@ module CargoTracker::Domain::Model::Handling
   
   class UnknownLocationError < CannotCreateHandlingEventError  
       
-    def initialize(@id : UnLocode)
-    end
+    def initialize(@id : UnLocode); end
     
     def message
       "No location with UN locode " + id.to_s + " exists in the system"
@@ -41,8 +38,7 @@ module CargoTracker::Domain::Model::Handling
   
   class UnknownVoyageError < CannotCreateHandlingEventError
     
-    def initialize(@id : VoyageNumber)
-    end
+    def initialize(@id : VoyageNumber); end
     
     def message
       "No voyage with number " + id.to_s + " exists in the system"

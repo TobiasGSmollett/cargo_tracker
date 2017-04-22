@@ -10,19 +10,14 @@ module CargoTracker::Domain::Model::Cargo
     getter destination : Location::Location
     getter arrival_deadline : Time
 
-    def initialize(@origin, @destination, @arrival_deadline)
-    end
+    def_equals @origin, @destination, @arrival_deadline
+
+    def initialize(@origin, @destination, @arrival_deadline); end
 
     def is_satisfied_by?(itinerary : Itinerary)
       origin == itinerary.initial_departure_location &&
       destination == itinerary.final_arrival_location &&
       itinerary.final_arrival_date <= arrival_deadline
-    end
-
-    def ==(other : self)
-      origin == other.origin &&
-      destination == other.destination &&
-      arrival_deadline == other.arrival_deadline
     end
   end
 end
