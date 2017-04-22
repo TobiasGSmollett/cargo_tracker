@@ -15,11 +15,11 @@ describe CargoTracker do
     route_spec2 = RouteSpecification.new(tokyo,tokyo, time)
 
     a = Cargo.new(TrackingId.new("1"), route_spec)
-    #b = Cargo.new(TrackingId.new("1"), route_spec2)
-    #c = Cargo.new(TrackingId.new("2"), route_spec)
+    b = Cargo.new(TrackingId.new("1"), route_spec2)
+    c = Cargo.new(TrackingId.new("2"), route_spec)
 
-    #true.should eq(a == b)
-    #false.should eq(a == c)
+    true.should eq(a == b)
+    false.should eq(a == c)
   end
 
 end

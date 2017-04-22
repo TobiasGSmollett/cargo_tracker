@@ -19,7 +19,7 @@ module CargoTracker::Domain::Model::Handling
 
     def most_recently_completed_event
       distinct_events = distinct_events_by_completion_time
-      #return nil if distinct_events.empty?
+      return nil if distinct_events.empty?
       distinct_events.last
     end
 

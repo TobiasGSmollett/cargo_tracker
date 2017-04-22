@@ -30,7 +30,7 @@ module CargoTracker::Domain::Model::Cargo
       legs.last.unload_time
     end
 
-    def is_expected?(event : HandlingEvent)
+    def is_expected?(event)
       return true if legs.empty?
 
       case event.typ

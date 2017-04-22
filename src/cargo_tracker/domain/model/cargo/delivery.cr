@@ -21,7 +21,7 @@ module CargoTracker::Domain::Model::Cargo
     getter is_unloaded_at_destination : Bool
     getter routing_status : RoutingStatus
     getter calculated_at : Time
-    getter last_event : Handling::HandlingEvent
+    getter last_event : (Handling::HandlingEvent | Nil)
 
     ETA_UNKOWN = nil
     NO_ACTIVITY = nil
@@ -36,10 +36,10 @@ module CargoTracker::Domain::Model::Cargo
     end
 
     protected def initialize(
-      @last_event : Handling::HandlingEvent,
+      @last_event,
       itinerary,
       route_specification)
-
+      
       @calculated_at = Time.new
 
       @misdirected = calculate_misdirection_status itinerary
@@ -54,7 +54,7 @@ module CargoTracker::Domain::Model::Cargo
 
     private def calculate_transport_status
       return TransportStatus::NOT_RECEIVED if last_event.nil?
-      case last_event.typ
+      case last_event.as(HandlingEvent).typ
       when HandlingEvent::Type::LOAD
         TransportStatus::ONBOARD_CARRIER
       when HandlingEvent::Type::CUSTOMS
@@ -68,19 +68,19 @@ module CargoTracker::Domain::Model::Cargo
 
     private def calculate_last_known_location : (Location | Nil)
       return nil if last_event.nil?
-      last_event.location
+      last_event.as(HandlingEvent).location
     end
 
     private def calculate_current_voyage : (Voyage | Nil)
       if transport_status == TransportStatus::ONBOARD_CARRIER && !last_event.nil?
-        last_event.voyage
+        last_event.as(HandlingEvent).voyage
       end
     end
 
 
     private def calculate_misdirection_status(itinerary : Itinerary): Bool
       return false if last_event.nil?
-      !itinerary.is_expected? last_event
+      !itinerary.is_expected? last_event.as(HandlingEvent)
     end
 
     private def calculate_eta(itinerary : Itinerary)
@@ -123,8 +123,8 @@ module CargoTracker::Domain::Model::Cargo
 
     private def calculate_unloaded_at_destination(route_specification): Bool
       !last_event.nil? &&
-      HandlingEvent::Type::UNLOAD == last_event.typ &&
-      route_specification.destination == last_event.location
+      HandlingEvent::Type::UNLOAD == last_event.as(HandlingEvent).typ &&
+      route_specification.destination == last_event.as(HandlingEvent).location
     end
 
     private def on_track?
