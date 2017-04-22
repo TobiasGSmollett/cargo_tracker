@@ -77,7 +77,7 @@ module CargoTracker::Domain::Model::Cargo
 
     private def calculate_misdirection_status(itinerary)
       return false if last_event.nil?
-      !itinerary.is_expected? last_event.as(HandlingEvent)
+      !itinerary.expected? last_event.as(HandlingEvent)
     end
 
     private def calculate_eta(itinerary : Itinerary)
@@ -111,7 +111,7 @@ module CargoTracker::Domain::Model::Cargo
 
     private def calculate_routing_status(itinerary, route_specification)
       return RoutingStatus::NOT_ROUTED if itinerary.nil?
-      if route_specification.is_satisfied_by? itinerary
+      if route_specification.satisfied_by? itinerary
         RoutingStatus::ROUTED
        else
         RoutingStatus::MISROUTED

@@ -1,11 +1,9 @@
 require "../location/*"
 require "../../shared/*"
 
-include CargoTracker::Domain::Shared
 include CargoTracker::Domain::Model::Location
 
 module CargoTracker::Domain::Model::Cargo
-
 
   struct Itinerary
     getter legs : Array(Leg)
@@ -25,7 +23,7 @@ module CargoTracker::Domain::Model::Cargo
       legs.last.unload_time
     end
 
-    def is_expected?(event)
+    def expected?(event)
       return true if legs.empty?
 
       case event.typ

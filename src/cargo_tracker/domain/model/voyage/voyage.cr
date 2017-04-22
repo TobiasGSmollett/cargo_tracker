@@ -9,10 +9,6 @@ module CargoTracker::Domain::Model::Voyage
 
     def initialize(@id, @schedule); end
 
-    def hash
-      id.hash
-    end
-
     def to_s
       "Voyage " + id
     end

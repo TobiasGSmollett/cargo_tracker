@@ -8,10 +8,7 @@ module CargoTracker::Domain::Shared
     abstract def id : ID
 
     # Entities compare by identity, not by attributes.
-    def_equals @id
-
-    def_hash @id
-
+    def_equals_and_hash @id
   end
 
 end
